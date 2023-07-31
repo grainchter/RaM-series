@@ -22,8 +22,16 @@ const Series = (series: any) => {
       sortByName();
     }
 
+    if (filter.sortByNameReverse) {
+      sortByNameReverse();
+    }
+
     if (filter.sortByDate) {
       sortByDate();
+    }
+
+    if (filter.sortByDateReverse) {
+      sortByDateReverse();
     }
   };
 
@@ -32,9 +40,24 @@ const Series = (series: any) => {
     if (seriesArray && seriesArray.length !== 0) {
       let sortedData: Array<ISeriesArray> = [];
 
-      seriesArray.forEach((obj: ISeriesArray) => {
+      series.series.seriesArray.forEach((obj: ISeriesArray) => {
         let newObj = [...obj.results];
         newObj.sort((a: any, b: any) => a.name.localeCompare(b.name));
+
+        sortedData.push({ season: obj.season, results: newObj });
+      });
+
+      setSeriesArray(sortedData);
+    }
+  };
+
+  const sortByNameReverse = () => {
+    if (seriesArray && seriesArray.length !== 0) {
+      let sortedData: Array<ISeriesArray> = [];
+
+      series.series.seriesArray.forEach((obj: ISeriesArray) => {
+        let newObj = [...obj.results];
+        newObj.sort((a: any, b: any) => b.name.localeCompare(a.name));
 
         sortedData.push({ season: obj.season, results: newObj });
       });
@@ -57,7 +80,27 @@ const Series = (series: any) => {
           return dateA - dateB;
         });
 
-        sortedData.push({ season: obj.season, results: newObj });
+        sortedData.unshift({ season: obj.season, results: newObj });
+      });
+
+      setSeriesArray(sortedData);
+    }
+  };
+
+  const sortByDateReverse = () => {
+    if (seriesArray && seriesArray.length !== 0) {
+      let sortedData: Array<ISeriesArray> = [];
+
+      seriesArray.forEach((obj: ISeriesArray) => {
+        let newObj = [...obj.results];
+        newObj.sort((a: any, b: any) => {
+          let dateA: any = new Date(a.air_date);
+          let dateB: any = new Date(b.air_date);
+
+          return dateB - dateA;
+        });
+
+        sortedData.unshift({ season: obj.season, results: newObj });
       });
 
       setSeriesArray(sortedData);

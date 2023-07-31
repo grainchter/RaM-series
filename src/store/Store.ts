@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ISeriesArray } from "../interfaces/interfaces";
-export type TPayload = {
+type TPayload = {
   seriesArray?: Array<ISeriesArray> | ISeriesArray | any;
   filterArray?: any;
   search?: string;
   sortByName?: boolean;
+  sortByNameReverse?: boolean;
   sortByDate?: boolean;
+  sortByDateReverse?: boolean;
   seasonsArray?: any;
   isLoad?: boolean;
 };
@@ -15,23 +17,25 @@ interface storeState {
   filterArray: any;
   search?: string;
   sortByName?: boolean;
+  sortByNameReverse?: boolean;
   sortByDate?: boolean;
+  sortByDateReverse?: boolean;
   seasonsArray?: any;
   isLoad: boolean;
 }
 
 const initialState = {
-  seriesArray : [],
+  seriesArray: [],
   filterArray: {
-    search: '',
+    search: "",
     sortByName: false,
-    sortByDate: false
+    sortByNameReverse: false,
+    sortByDate: false,
+    sortByDateReverse: false,
   },
-  seasonsArray:[],
-  isLoad: true
+  seasonsArray: [],
+  isLoad: true,
 } as storeState;
-
-
 
 const storeSlice = createSlice({
   name: "editValues",
@@ -52,6 +56,7 @@ const storeSlice = createSlice({
   },
 });
 
-export const { changeValue, changeFilter, changeSeasons, changeLoad } = storeSlice.actions;
+export const { changeValue, changeFilter, changeSeasons, changeLoad } =
+  storeSlice.actions;
 
 export const storeReducer = storeSlice.reducer;

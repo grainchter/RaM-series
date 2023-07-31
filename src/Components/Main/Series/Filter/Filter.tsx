@@ -25,6 +25,7 @@ const Filter = () => {
             filterArray: {
               search: searchValue,
               sortByName: true,
+              sortByNameReverse: false,
               sortByDate: false,
             },
           })
@@ -35,7 +36,31 @@ const Filter = () => {
             filterArray: {
               search: searchValue,
               sortByName: false,
+              sortByNameReverse: false,
               sortByDate: true,
+            },
+          })
+        );
+      } else if (name === "sortByNameReverse") {
+        dispatch(
+          changeFilter({
+            filterArray: {
+              search: searchValue,
+              sortByName: false,
+              sortByNameReverse: true,
+              sortByDate: false,
+            },
+          })
+        );
+      } else if (name === "sortByDateReverse") {
+        dispatch(
+          changeFilter({
+            filterArray: {
+              search: searchValue,
+              sortByName: false,
+              sortByNameReverse: false,
+              sortByDate: false,
+              sortByDateReverse: true,
             },
           })
         );
@@ -63,26 +88,54 @@ const Filter = () => {
             onChange={(e) => changeFilterFunc(e)}
             placeholder="Поиск серии..."
           />
-          <label htmlFor="">
-            Сортировка по алфавиту
-            <input
-              type="radio"
-              name="sortByName"
-              value="sortByName"
-              onChange={(e) => changeFilterFunc(e)}
-              checked={radioSelectedValue === "sortByName"}
-            />
-          </label>
-          <label htmlFor="">
-            Сортировка по дате
-            <input
-              type="radio"
-              name="sortByDate"
-              value="sortByDate"
-              onChange={(e) => changeFilterFunc(e)}
-              checked={radioSelectedValue === "sortByDate"}
-            />
-          </label>
+          <div className="actions">
+            <div className="side">
+              <h3>Сортировка по алфавиту</h3>
+              <label htmlFor="">
+                A-Z
+                <input
+                  type="radio"
+                  name="sortByName"
+                  value="sortByName"
+                  onChange={(e) => changeFilterFunc(e)}
+                  checked={radioSelectedValue === "sortByName"}
+                />
+              </label>
+              <label htmlFor="">
+                Z-A
+                <input
+                  type="radio"
+                  name="sortByNameReverse"
+                  value="sortByNameReverse"
+                  onChange={(e) => changeFilterFunc(e)}
+                  checked={radioSelectedValue === "sortByNameReverse"}
+                />
+              </label>
+            </div>
+            <div className="side">
+              <h3>Сортировка по дате</h3>
+              <label htmlFor="">
+                Самые старые
+                <input
+                  type="radio"
+                  name="sortByDate"
+                  value="sortByDate"
+                  onChange={(e) => changeFilterFunc(e)}
+                  checked={radioSelectedValue === "sortByDate"}
+                />
+              </label>
+              <label htmlFor="">
+                Самые Новые
+                <input
+                  type="radio"
+                  name="sortByDateReverse"
+                  value="sortByDateReverse"
+                  onChange={(e) => changeFilterFunc(e)}
+                  checked={radioSelectedValue === "sortByDateReverse"}
+                />
+              </label>
+            </div>
+          </div>
         </form>
       </div>
     </div>
