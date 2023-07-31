@@ -1,18 +1,23 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { changeValue } from "./store/Store";
+import { TPayload, changeLoad, changeValue } from "./store/Store";
 import SeriesMain from "./Components/Main/Series";
 
 import { HashRouter, Route, Routes } from "react-router-dom";
 import SeriesPage from "./Components/Main/Series/SeriesPage/SeriesPage";
 import "./global.css";
 import { ISeriesArray, ISeriesResult } from "./interfaces/interfaces";
+import { TStore } from "./store/hooks";
 
 var _ = require("lodash");
 
 const App = () => {
   const dispatch = useDispatch();
+
+  const seriesArray: TPayload = useSelector(
+    (state: TStore) => state.storeReducer
+  );
 
   const URL = "https://rickandmortyapi.com/api/episode/";
 
@@ -60,6 +65,7 @@ const App = () => {
       const results = data.results;
 
       dispatch(changeValue({ seriesArray: { season: item, results } }));
+      dispatch(changeLoad({ isLoad: false }));
     });
   };
 

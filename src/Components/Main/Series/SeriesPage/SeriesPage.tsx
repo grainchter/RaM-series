@@ -75,7 +75,7 @@ const SeriesPage = () => {
         </div>
 
         {loading ? (
-          <p>Загружаю персонажей...</p>
+          <div className="loader"></div>
         ) : (
           <div className="content">
             {characters &&

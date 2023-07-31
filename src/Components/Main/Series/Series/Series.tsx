@@ -96,33 +96,37 @@ const Series = (series: any) => {
 
   return (
     <div className="series-container">
-      <div className="wrap">
-        {seriesArray &&
-          seriesArray.length > 0 &&
-          seriesArray.map((item: ISeriesArray) => (
-            <div className="content" key={item.season}>
-              <h3>{item.season}</h3>
+      {series.series.isLoad ? (
+        <div className="loader"></div>
+      ) : (
+        <div className="wrap">
+          {seriesArray &&
+            seriesArray.length > 0 &&
+            seriesArray.map((item: ISeriesArray) => (
+              <div className="content" key={item.season}>
+                <h3>{item.season}</h3>
 
-              {item.results &&
-                item.results.map((item: ISeriesResult) => (
-                  <Link
-                    to={"/series/" + item.id}
-                    key={item.id}
-                    className="link"
-                  >
-                    <div className="">
-                      <p>Название: {item.name}</p>
-                      <p>Дата выхода: {item.air_date}</p>
-                      <p>
-                        Номер эпизода:{" "}
-                        {item.episode.substring(item.episode.length - 2)}
-                      </p>
-                    </div>
-                  </Link>
-                ))}
-            </div>
-          ))}
-      </div>
+                {item.results &&
+                  item.results.map((item: ISeriesResult) => (
+                    <Link
+                      to={"/series/" + item.id}
+                      key={item.id}
+                      className="link"
+                    >
+                      <div className="">
+                        <p>Название: {item.name}</p>
+                        <p>Дата выхода: {item.air_date}</p>
+                        <p>
+                          Номер эпизода:{" "}
+                          {item.episode.substring(item.episode.length - 2)}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+              </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 };

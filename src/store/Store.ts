@@ -7,6 +7,7 @@ export type TPayload = {
   sortByName?: boolean;
   sortByDate?: boolean;
   seasonsArray?: any;
+  isLoad?: boolean;
 };
 
 interface storeState {
@@ -16,6 +17,7 @@ interface storeState {
   sortByName?: boolean;
   sortByDate?: boolean;
   seasonsArray?: any;
+  isLoad: boolean;
 }
 
 const initialState = {
@@ -25,7 +27,8 @@ const initialState = {
     sortByName: false,
     sortByDate: false
   },
-  seasonsArray:[]
+  seasonsArray:[],
+  isLoad: true
 } as storeState;
 
 
@@ -43,9 +46,12 @@ const storeSlice = createSlice({
     changeSeasons: (state: any, { payload }: PayloadAction<TPayload>) => {
       state.seasonsArray = payload.seasonsArray;
     },
+    changeLoad: (state: any, { payload }: PayloadAction<TPayload>) => {
+      state.isLoad = payload.isLoad;
+    },
   },
 });
 
-export const { changeValue, changeFilter, changeSeasons } = storeSlice.actions;
+export const { changeValue, changeFilter, changeSeasons, changeLoad } = storeSlice.actions;
 
 export const storeReducer = storeSlice.reducer;
