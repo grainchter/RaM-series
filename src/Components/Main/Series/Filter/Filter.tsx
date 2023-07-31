@@ -92,7 +92,7 @@ const Filter = () => {
             <div className="side">
               <h3>Сортировка по алфавиту</h3>
               <label htmlFor="">
-                A-Z
+                
                 <input
                   type="radio"
                   name="sortByName"
@@ -100,9 +100,10 @@ const Filter = () => {
                   onChange={(e) => changeFilterFunc(e)}
                   checked={radioSelectedValue === "sortByName"}
                 />
+                A-Z
               </label>
               <label htmlFor="">
-                Z-A
+                
                 <input
                   type="radio"
                   name="sortByNameReverse"
@@ -110,12 +111,13 @@ const Filter = () => {
                   onChange={(e) => changeFilterFunc(e)}
                   checked={radioSelectedValue === "sortByNameReverse"}
                 />
+                Z-A
               </label>
             </div>
             <div className="side">
               <h3>Сортировка по дате</h3>
               <label htmlFor="">
-                Самые старые
+                
                 <input
                   type="radio"
                   name="sortByDate"
@@ -123,9 +125,10 @@ const Filter = () => {
                   onChange={(e) => changeFilterFunc(e)}
                   checked={radioSelectedValue === "sortByDate"}
                 />
+                Сначала старые
               </label>
               <label htmlFor="">
-                Самые Новые
+                
                 <input
                   type="radio"
                   name="sortByDateReverse"
@@ -133,6 +136,7 @@ const Filter = () => {
                   onChange={(e) => changeFilterFunc(e)}
                   checked={radioSelectedValue === "sortByDateReverse"}
                 />
+                Сначала новые
               </label>
             </div>
           </div>
