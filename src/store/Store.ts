@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ISeriesArray } from "../interfaces/interfaces";
 export type TPayload = {
-  seriesArray?: any;
+  seriesArray?: Array<ISeriesArray> | ISeriesArray | any;
   filterArray?: any;
   search?: string;
   sortByName?: boolean;
@@ -9,7 +10,7 @@ export type TPayload = {
 };
 
 interface storeState {
-  seriesArray: any;
+  seriesArray: Array<ISeriesArray> | ISeriesArray | any;
   filterArray: any;
   search?: string;
   sortByName?: boolean;

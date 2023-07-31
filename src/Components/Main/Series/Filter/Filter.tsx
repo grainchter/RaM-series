@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import { SeriesContext } from "../../../../context";
-import { TPayload } from "../../../../store/Store";
-import { useDispatch, useSelector } from "react-redux";
-import { TStore } from "../../../../store/hooks";
+import React, { useState } from "react";
+
+import { useDispatch } from "react-redux";
+
 import { changeFilter } from "../../../../store/Store";
 
 import "./filter.scss";
@@ -15,8 +14,6 @@ const Filter = () => {
   const changeFilterFunc = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     const name = e.currentTarget.name;
-    console.log(value);
-    console.log(name);
 
     if (name !== "search") {
       setRadioSelectedValue(name);

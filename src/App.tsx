@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
-import Series from "./Components/Main/Series/Series/Series";
-import { useContext } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { SeriesContext } from "./context";
-import { changeValue, changeSeasons } from "./store/Store";
+import { changeValue } from "./store/Store";
 import SeriesMain from "./Components/Main/Series";
 
-import { HashRouter, Route, Link, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import SeriesPage from "./Components/Main/Series/SeriesPage/SeriesPage";
-import './global.css'
+import "./global.css";
+import { ISeriesArray, ISeriesResult } from "./interfaces/interfaces";
 
 var _ = require("lodash");
 
@@ -25,10 +23,13 @@ const App = () => {
     return await respponse.json();
   };
 
-  const getAllEpisodes: (url: string) => any = async (url: string) => {
+  const getAllEpisodes: (url: string) => Promise<Array<ISeriesArray>> = async (
+    url: string
+  ) => {
     let data = await requestData(url);
 
-    const episodes = data.results.map((episode: any) => episode);
+    const episodes = data.results.map((episode: ISeriesResult) => episode);
+
     if (data.info.next) {
       const nextEpisodes = await getAllEpisodes(data.info.next);
       return [...episodes, ...nextEpisodes];
@@ -37,8 +38,8 @@ const App = () => {
     return episodes;
   };
 
-  const getUniqueSeasons = (episodes: any) => {
-    let seasons: any[] = [];
+  const getUniqueSeasons = (episodes: Array<ISeriesArray>) => {
+    let seasons: Array<string> = [];
 
     episodes.forEach((item: any) => {
       seasons.push(item.episode.substring(0, 3));
@@ -46,13 +47,11 @@ const App = () => {
 
     const uniqSeasons = _.uniq(seasons);
 
-    // dispatch(changeSeasons({ seasonsArray: uniqSeasons }));
-
     return uniqSeasons;
   };
 
-  const getResultEpisodesArray = (uniqSeasons: any) => {
-    uniqSeasons.forEach(async (item: any) => {
+  const getResultEpisodesArray = (uniqSeasons: Array<string>) => {
+    uniqSeasons.forEach(async (item: string) => {
       let data = await requestData(URL + `?episode=${item}`);
 
       const results = data.results;
@@ -63,8 +62,10 @@ const App = () => {
 
   useEffect(() => {
     getAllEpisodes(URL)
-      .then((episodes: any) => getUniqueSeasons(episodes))
-      .then((uniqSeasons: any) => getResultEpisodesArray(uniqSeasons));
+      .then((episodes: Array<ISeriesArray>) => getUniqueSeasons(episodes))
+      .then((uniqSeasons: Array<string>) =>
+        getResultEpisodesArray(uniqSeasons)
+      );
   }, []);
 
   return (
@@ -73,7 +74,6 @@ const App = () => {
         <Routes>
           <Route path="/series/:seriesId" Component={SeriesPage} />
           <Route path="/" Component={SeriesMain} />
-          {/* <SeriesMain /> */}
         </Routes>
       </HashRouter>
     </div>

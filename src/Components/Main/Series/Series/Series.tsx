@@ -1,18 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
-import { SeriesContext } from "../../../../context";
-import { TPayload } from "../../../../store/Store";
-import { useSelector } from "react-redux";
-import { TStore } from "../../../../store/hooks";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import './series.scss'
+import "./series.scss";
+import { ISeriesArray, ISeriesResult } from "../../../../interfaces/interfaces";
 
 const Series = (series: any) => {
-
-
-
-  const [seriesArray, setSeriesArray] = useState<any>(
-    series.series.seriesArray
-  );
+  const [seriesArray, setSeriesArray] = useState<
+    Array<ISeriesArray> | undefined
+  >(series.series.seriesArray);
 
   const editSeriesArrayByFilter = (filter: any) => {
     if (filter.search.length === 0) {
@@ -33,10 +27,10 @@ const Series = (series: any) => {
   };
 
   const sortByName = () => {
-    if (seriesArray.length !== 0) {
-      let sortedData: any = [];
+    if (seriesArray && seriesArray.length !== 0) {
+      let sortedData: Array<ISeriesArray> = [];
 
-      seriesArray.forEach((obj: any) => {
+      seriesArray.forEach((obj: ISeriesArray) => {
         let newObj = [...obj.results];
         newObj.sort((a: any, b: any) => a.name.localeCompare(b.name));
 
@@ -48,10 +42,10 @@ const Series = (series: any) => {
   };
 
   const sortByDate = () => {
-    if (seriesArray.length !== 0) {
-      let sortedData: any = [];
+    if (seriesArray && seriesArray.length !== 0) {
+      let sortedData: Array<ISeriesArray> = [];
 
-      seriesArray.forEach((obj: any) => {
+      seriesArray.forEach((obj: ISeriesArray) => {
         let newObj = [...obj.results];
         newObj.sort((a: any, b: any) => {
           let dateA: any = new Date(a.air_date);
@@ -63,7 +57,6 @@ const Series = (series: any) => {
         sortedData.push({ season: obj.season, results: newObj });
       });
 
-
       setSeriesArray(sortedData);
     }
   };
@@ -73,14 +66,14 @@ const Series = (series: any) => {
     let resultSeriesArray;
 
     if (series.series.seriesArray.length > 0) {
-      result = series.series.seriesArray.map((item: any) => ({
+      result = series.series.seriesArray.map((item: ISeriesArray) => ({
         season: item.season,
-        results: item.results.filter((result: any) =>
+        results: item.results.filter((result: ISeriesResult) =>
           result.name.includes(name)
         ),
       }));
 
-      resultSeriesArray = result.filter((result: any) => {
+      resultSeriesArray = result.filter((result: ISeriesArray) => {
         return result.results.length !== 0;
       });
     }
@@ -99,27 +92,32 @@ const Series = (series: any) => {
   return (
     <div className="series-container">
       <div className="wrap">
-      {seriesArray &&
-        seriesArray.length > 0 &&
-        seriesArray.map((item: any) => (
-          <div className="content" key={item.season}>
-            <h3>{item.season}</h3>
+        {seriesArray &&
+          seriesArray.length > 0 &&
+          seriesArray.map((item: ISeriesArray) => (
+            <div className="content" key={item.season}>
+              <h3>{item.season}</h3>
 
-            {item.results &&
-              item.results.map((item: any) => (
-                <Link to={"/series/" + item.id} key={item.id} className="link">
-                  <div className="">
-                    <p>Название: {item.name}</p>
-                    <p>Дата выхода: {item.air_date}</p>
-                    <p>Номер эпизода: {item.episode.substring(item.episode.length - 2)}</p>
-                  </div>
-                  
-                </Link>
-              ))}
-          </div>
-        ))}
+              {item.results &&
+                item.results.map((item: ISeriesResult) => (
+                  <Link
+                    to={"/series/" + item.id}
+                    key={item.id}
+                    className="link"
+                  >
+                    <div className="">
+                      <p>Название: {item.name}</p>
+                      <p>Дата выхода: {item.air_date}</p>
+                      <p>
+                        Номер эпизода:{" "}
+                        {item.episode.substring(item.episode.length - 2)}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+            </div>
+          ))}
       </div>
-
     </div>
   );
 };

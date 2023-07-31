@@ -4,20 +4,15 @@ import Series from "./Series/Series";
 import { TStore } from "../../../store/hooks";
 import Filter from "./Filter/Filter";
 
-
-
 const SeriesMain = () => {
   const seriesArray: TPayload = useSelector(
     (state: TStore) => state.storeReducer
   );
 
-
-  
-
   return (
-    <div>      
+    <div>
       <Filter />
-      <Series series={seriesArray}/>
+      <Series series={seriesArray} />
     </div>
   );
 };

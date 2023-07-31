@@ -6,13 +6,14 @@ import { TStore } from "../../../../store/hooks";
 
 import "./seriesPage.scss";
 import { Link } from "react-router-dom";
+import { ISeriesResult } from "../../../../interfaces/interfaces";
 
 const SeriesPage = () => {
   const params = useParams();
   const current = params.seriesId;
 
-  const [series, setSeries] = useState<any | undefined>(undefined);
-  const [characters, setCharacters] = useState<any>([]);
+  const [series, setSeries] = useState<ISeriesResult | undefined>(undefined);
+  const [characters, setCharacters] = useState<Array<any>>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const seriesArray: TPayload = useSelector(
@@ -28,7 +29,7 @@ const SeriesPage = () => {
 
   const getCharactersFromSeries = async (item: any) => {
     const url = "https://rickandmortyapi.com/api/character/";
-    let characterIdArray: any = [];
+    let characterIdArray: Array<number> = [];
 
     item.characters.forEach(async (item: any) => {
       characterIdArray.push(item.replace(/[^0-9]/g, ""));
@@ -41,33 +42,30 @@ const SeriesPage = () => {
   };
 
   useEffect(() => {
-    seriesArray.seriesArray.forEach((item: any) => {
-      item.results.forEach((item: any) => {
-        if (item.id === Number(current)) {
-          setSeries(item);
-          getCharactersFromSeries(item);
-        }
+    seriesArray &&
+      seriesArray.seriesArray &&
+      seriesArray.seriesArray.forEach((item: any) => {
+        item.results.forEach((item: any) => {
+          if (item.id === Number(current)) {
+            setSeries(item);
+            getCharactersFromSeries(item);
+          }
+        });
       });
-    });
   }, [seriesArray]);
 
   return (
     <div className="seriesPage-container">
-
-
       <div className="wrap">
-      <div className="about-series">
-        <h1>Название серии {series && series.name}</h1>
-        <p>Дата выхода {series && series.air_date}</p>
-        <p>Номер эпизода {series && series.episode}</p>
-      </div>
-        <div className="title">
-        <h1>Персонажи, участвующие в серии</h1>
-        <Link to="/">
-          Вернуться на главную
-        </Link>
+        <div className="about-series">
+          <h1>Название серии {series && series.name}</h1>
+          <p>Дата выхода {series && series.air_date}</p>
+          <p>Номер эпизода {series && series.episode}</p>
         </div>
-        
+        <div className="title">
+          <h1>Персонажи, участвующие в серии</h1>
+          <Link to="/">Вернуться на главную</Link>
+        </div>
 
         {loading ? (
           <p>Загружаю персонажей...</p>
@@ -75,7 +73,7 @@ const SeriesPage = () => {
           <div className="content">
             {characters &&
               characters.map((item: any) => (
-                <div className="item">
+                <div className="item" key={item.id}>
                   <img src={item.image} alt="" />
                   <div className="info">
                     <p>{item.name}</p>

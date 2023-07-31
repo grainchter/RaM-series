@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://itmo.github.io/RaM-series/",
   "scripts": {
     "start": "webpack serve  --hot --open",
     "build": "webpack --config webpack.config.js --mode development"
