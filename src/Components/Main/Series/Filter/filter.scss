@@ -1,0 +1,57 @@
+.filter-container {
+  width: 100%;
+  background-color: rgb(124, 124, 124);
+  height: 50px;
+  display: grid;
+  place-items: center;
+
+  & > .content {
+    background-color: rgb(213, 213, 213);
+    width: 100%;
+    height: 100%;
+    max-width: 1280px;
+    display: grid;
+    place-items: center;
+
+    & > .form {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      column-gap: 50px;
+
+      & > input[type="text"] {
+        background-color: rgb(255, 255, 255);
+        width: 100%;
+        height: 100%;
+        text-indent: 15px;
+        font-size: 14px;
+      }
+
+      & > label {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        column-gap: 15px;
+        font-size: 14px;
+
+        & > input[type="radio"] {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .filter-container {
+    height: auto;
+
+    & > .content {
+      padding: 25px;
+
+      & > .form {
+        display: grid;
+        grid-template-columns: 1fr;
+        row-gap: 15px;
+      }
+    }
+  }
+}

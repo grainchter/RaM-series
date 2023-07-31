@@ -18,10 +18,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: isDevelopment ? '[name].css' : '[name].[hash].css',
-      chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css'
-    }),
+
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
@@ -34,14 +31,7 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.scss$/, 
-        use: [
-            'style-loader',
-            'css-loader',
-            'sass-loader'
-        ]
-    },
+
       {
         test: /\.ts$|tsx/,
         exclude: /node_modules/,
@@ -55,6 +45,17 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
       },
       {
         test: /\.png|svg|jpg|gif$/,

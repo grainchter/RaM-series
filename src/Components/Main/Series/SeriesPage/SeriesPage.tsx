@@ -4,6 +4,9 @@ import { TPayload } from "../../../../store/Store";
 import { useSelector } from "react-redux";
 import { TStore } from "../../../../store/hooks";
 
+import "./seriesPage.scss";
+import { Link } from "react-router-dom";
+
 const SeriesPage = () => {
   const params = useParams();
   const current = params.seriesId;
@@ -48,22 +51,44 @@ const SeriesPage = () => {
     });
   }, [seriesArray]);
 
-  // console.log(characters);
-
   return (
-    <div>
-      <p>{series && series.id}</p>
+    <div className="seriesPage-container">
 
-      {/* {characters &&
-        characters.map((item: any) => (
-          <p>{item.id}</p>
-        ))} */}
 
-      {loading ? (
-        <p>loading...</p>
-      ) : (
-        characters && characters.map((item: any) => <p>{item.name}</p>)
-      )}
+      <div className="wrap">
+      <div className="about-series">
+        <h1>Название серии {series && series.name}</h1>
+        <p>Дата выхода {series && series.air_date}</p>
+        <p>Номер эпизода {series && series.episode}</p>
+      </div>
+        <div className="title">
+        <h1>Персонажи, участвующие в серии</h1>
+        <Link to="/">
+          Вернуться на главную
+        </Link>
+        </div>
+        
+
+        {loading ? (
+          <p>Загружаю персонажей...</p>
+        ) : (
+          <div className="content">
+            {characters &&
+              characters.map((item: any) => (
+                <div className="item">
+                  <img src={item.image} alt="" />
+                  <div className="info">
+                    <p>{item.name}</p>
+                    <p>{item.status}</p>
+                    <p>{item.species}</p>
+                    <p>{item.type}</p>
+                    <p>{item.gender}</p>
+                  </div>
+                </div>
+              ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

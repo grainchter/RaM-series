@@ -9,6 +9,7 @@ import SeriesMain from "./Components/Main/Series";
 
 import { HashRouter, Route, Link, Routes } from "react-router-dom";
 import SeriesPage from "./Components/Main/Series/SeriesPage/SeriesPage";
+import './global.css'
 
 var _ = require("lodash");
 

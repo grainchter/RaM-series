@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { TStore } from "../../../../store/hooks";
 import { changeFilter } from "../../../../store/Store";
 
+import "./filter.scss";
+
 const Filter = () => {
   const dispatch = useDispatch();
   const [radioSelectedValue, setRadioSelectedValue] = useState<string>("");
@@ -52,29 +54,38 @@ const Filter = () => {
   };
 
   return (
-    <div>
-      <form action="">
-        <input
-          type="text"
-          name="search"
-          id=""
-          onChange={(e) => changeFilterFunc(e)}
-        />
-        <input
-          type="radio"
-          name="sortByName"
-          value="sortByName"
-          onChange={(e) => changeFilterFunc(e)}
-          checked={radioSelectedValue === "sortByName"}
-        />
-        <input
-          type="radio"
-          name="sortByDate"
-          value="sortByDate"
-          onChange={(e) => changeFilterFunc(e)}
-          checked={radioSelectedValue === "sortByDate"}
-        />
-      </form>
+    <div className="filter-container">
+      <div className="content">
+        <form action="" className="form">
+          <input
+            type="text"
+            name="search"
+            id=""
+            onChange={(e) => changeFilterFunc(e)}
+            placeholder="Поиск серии..."
+          />
+          <label htmlFor="">
+            Сортировка по алфавиту
+            <input
+              type="radio"
+              name="sortByName"
+              value="sortByName"
+              onChange={(e) => changeFilterFunc(e)}
+              checked={radioSelectedValue === "sortByName"}
+            />
+          </label>
+          <label htmlFor="">
+            Сортировка по дате
+            <input
+              type="radio"
+              name="sortByDate"
+              value="sortByDate"
+              onChange={(e) => changeFilterFunc(e)}
+              checked={radioSelectedValue === "sortByDate"}
+            />
+          </label>
+        </form>
+      </div>
     </div>
   );
 };

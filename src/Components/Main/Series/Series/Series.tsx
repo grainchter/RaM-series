@@ -4,7 +4,7 @@ import { TPayload } from "../../../../store/Store";
 import { useSelector } from "react-redux";
 import { TStore } from "../../../../store/hooks";
 import { Link } from "react-router-dom";
-
+import './series.scss'
 
 const Series = (series: any) => {
 
@@ -97,7 +97,8 @@ const Series = (series: any) => {
   }, [series.series.filterArray]);
 
   return (
-    <div className="container">
+    <div className="series-container">
+      <div className="wrap">
       {seriesArray &&
         seriesArray.length > 0 &&
         seriesArray.map((item: any) => (
@@ -106,12 +107,19 @@ const Series = (series: any) => {
 
             {item.results &&
               item.results.map((item: any) => (
-                <Link to={"/series/" + item.id} key={item.id}>
-                  {item.name}
+                <Link to={"/series/" + item.id} key={item.id} className="link">
+                  <div className="">
+                    <p>Название: {item.name}</p>
+                    <p>Дата выхода: {item.air_date}</p>
+                    <p>Номер эпизода: {item.episode.substring(item.episode.length - 2)}</p>
+                  </div>
+                  
                 </Link>
               ))}
           </div>
         ))}
+      </div>
+
     </div>
   );
 };
