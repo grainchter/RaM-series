@@ -3,6 +3,7 @@ const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin"
 const path = require("path");
 const webpack = require("webpack");
 
+
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 module.exports = {
@@ -17,6 +18,10 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: isDevelopment ? '[name].css' : '[name].[hash].css',
+      chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css'
+    }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
@@ -30,6 +35,14 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.scss$/, 
+        use: [
+            'style-loader',
+            'css-loader',
+            'sass-loader'
+        ]
+    },
+      {
         test: /\.ts$|tsx/,
         exclude: /node_modules/,
         loader: require.resolve("babel-loader"),
@@ -41,7 +54,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ["style-loader", "css-loader"]
       },
       {
         test: /\.png|svg|jpg|gif$/,

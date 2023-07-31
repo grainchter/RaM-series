@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { TStore } from "../../../../store/hooks";
 import { Link } from "react-router-dom";
 
+
 const Series = (series: any) => {
 
 
@@ -62,7 +63,6 @@ const Series = (series: any) => {
         sortedData.push({ season: obj.season, results: newObj });
       });
 
-      // console.log(sortedData);
 
       setSeriesArray(sortedData);
     }
@@ -97,12 +97,12 @@ const Series = (series: any) => {
   }, [series.series.filterArray]);
 
   return (
-    <div>
+    <div className="container">
       {seriesArray &&
         seriesArray.length > 0 &&
         seriesArray.map((item: any) => (
-          <div className="div" key={item.season}>
-            <p>{item.season}</p>
+          <div className="content" key={item.season}>
+            <h3>{item.season}</h3>
 
             {item.results &&
               item.results.map((item: any) => (
