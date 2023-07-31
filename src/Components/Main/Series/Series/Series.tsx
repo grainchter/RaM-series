@@ -71,7 +71,7 @@ const Series = (series: any) => {
     if (seriesArray && seriesArray.length !== 0) {
       let sortedData: Array<ISeriesArray> = [];
 
-      seriesArray.forEach((obj: ISeriesArray) => {
+      series.series.seriesArray.forEach((obj: ISeriesArray) => {
         let newObj = [...obj.results];
         newObj.sort((a: any, b: any) => {
           let dateA: any = new Date(a.air_date);
@@ -80,7 +80,7 @@ const Series = (series: any) => {
           return dateA - dateB;
         });
 
-        sortedData.unshift({ season: obj.season, results: newObj });
+        sortedData.push({ season: obj.season, results: newObj });
       });
 
       setSeriesArray(sortedData);
@@ -91,7 +91,7 @@ const Series = (series: any) => {
     if (seriesArray && seriesArray.length !== 0) {
       let sortedData: Array<ISeriesArray> = [];
 
-      seriesArray.forEach((obj: ISeriesArray) => {
+      series.series.seriesArray.forEach((obj: ISeriesArray) => {
         let newObj = [...obj.results];
         newObj.sort((a: any, b: any) => {
           let dateA: any = new Date(a.air_date);

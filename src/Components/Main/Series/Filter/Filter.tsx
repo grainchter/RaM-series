@@ -10,6 +10,7 @@ const Filter = () => {
   //данный компонент получает данные о том, какие фильтры нужно применить из формы и записывает в стейт
 
   const dispatch = useDispatch();
+
   const [radioSelectedValue, setRadioSelectedValue] = useState<string>("");
   const [searchValue, setSearchValue] = useState<string>("");
 
@@ -92,7 +93,6 @@ const Filter = () => {
             <div className="side">
               <h3>Сортировка по алфавиту</h3>
               <label htmlFor="">
-                
                 <input
                   type="radio"
                   name="sortByName"
@@ -103,7 +103,6 @@ const Filter = () => {
                 A-Z
               </label>
               <label htmlFor="">
-                
                 <input
                   type="radio"
                   name="sortByNameReverse"
@@ -117,7 +116,6 @@ const Filter = () => {
             <div className="side">
               <h3>Сортировка по дате</h3>
               <label htmlFor="">
-                
                 <input
                   type="radio"
                   name="sortByDate"
@@ -128,7 +126,6 @@ const Filter = () => {
                 Сначала старые
               </label>
               <label htmlFor="">
-                
                 <input
                   type="radio"
                   name="sortByDateReverse"
