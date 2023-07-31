@@ -8,6 +8,7 @@ const Series = (series: any) => {
     Array<ISeriesArray> | undefined
   >(series.series.seriesArray);
 
+  //изменяем локальный стейт в зависимости от выбранных фильтров
   const editSeriesArrayByFilter = (filter: any) => {
     if (filter.search.length === 0) {
       setSeriesArray(series.series.seriesArray);
@@ -26,6 +27,7 @@ const Series = (series: any) => {
     }
   };
 
+  //функция сортировки по алфавиту
   const sortByName = () => {
     if (seriesArray && seriesArray.length !== 0) {
       let sortedData: Array<ISeriesArray> = [];
@@ -41,6 +43,7 @@ const Series = (series: any) => {
     }
   };
 
+  //функция сортировки по дате
   const sortByDate = () => {
     if (seriesArray && seriesArray.length !== 0) {
       let sortedData: Array<ISeriesArray> = [];
@@ -61,6 +64,7 @@ const Series = (series: any) => {
     }
   };
 
+  //функция поиска по имени
   const searchByName = (name: string) => {
     let result;
     let resultSeriesArray;
@@ -81,6 +85,7 @@ const Series = (series: any) => {
     setSeriesArray(resultSeriesArray);
   };
 
+  //два useEffect для того, чтобы подписаться на изменения разных данных и выполнять разные условия
   useEffect(() => {
     setSeriesArray(series.series.seriesArray);
   }, [series.series.seriesArray]);

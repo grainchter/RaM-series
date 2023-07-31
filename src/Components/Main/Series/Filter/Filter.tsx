@@ -7,6 +7,8 @@ import { changeFilter } from "../../../../store/Store";
 import "./filter.scss";
 
 const Filter = () => {
+  //данный компонент получает данные о том, какие фильтры нужно применить из формы и записывает в стейт
+
   const dispatch = useDispatch();
   const [radioSelectedValue, setRadioSelectedValue] = useState<string>("");
   const [searchValue, setSearchValue] = useState<string>("");

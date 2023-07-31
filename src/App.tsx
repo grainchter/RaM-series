@@ -23,6 +23,7 @@ const App = () => {
     return await respponse.json();
   };
 
+  //запрос для получение всех эпизодов
   const getAllEpisodes: (url: string) => Promise<Array<ISeriesArray>> = async (
     url: string
   ) => {
@@ -38,6 +39,7 @@ const App = () => {
     return episodes;
   };
 
+  //фильтрация результата выполнения функции getAllEpisodes и получение списка уникальных значений - сезонов
   const getUniqueSeasons = (episodes: Array<ISeriesArray>) => {
     let seasons: Array<string> = [];
 
@@ -50,6 +52,7 @@ const App = () => {
     return uniqSeasons;
   };
 
+  //запрос с ключем "уникальный эпизод" для получения спика серий, относящихся к данному сезону и запись в стор
   const getResultEpisodesArray = (uniqSeasons: Array<string>) => {
     uniqSeasons.forEach(async (item: string) => {
       let data = await requestData(URL + `?episode=${item}`);

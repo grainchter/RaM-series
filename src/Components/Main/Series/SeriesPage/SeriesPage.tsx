@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { ISeriesResult } from "../../../../interfaces/interfaces";
 
 const SeriesPage = () => {
+
+  //получаем id выбранной серии
   const params = useParams();
   const current = params.seriesId;
 
@@ -27,14 +29,18 @@ const SeriesPage = () => {
     return await respponse.json();
   };
 
+  //запрос на получение персонажей, которые относятся к выбранной серии
   const getCharactersFromSeries = async (item: any) => {
     const url = "https://rickandmortyapi.com/api/character/";
+
+    //api позволяет делать запррос с несколькими параметрами, для этого записываем в characterIdArray все необходимые для запроса идентификаторы
     let characterIdArray: Array<number> = [];
 
     item.characters.forEach(async (item: any) => {
       characterIdArray.push(item.replace(/[^0-9]/g, ""));
     });
 
+    //и делаем запрос
     let data = await requestData(url + characterIdArray.toString());
 
     setCharacters(data);
@@ -42,6 +48,7 @@ const SeriesPage = () => {
   };
 
   useEffect(() => {
+    //с использование current находим нужную серию и записываем ее в локальный стейт
     seriesArray &&
       seriesArray.seriesArray &&
       seriesArray.seriesArray.forEach((item: any) => {
